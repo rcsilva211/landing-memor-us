@@ -261,14 +261,16 @@ const App = () => {
       {/* Collaborators Section */}
       <section className='relative collaborator flex flex-col items-center justify-start px-6 py-14 pt-10'>
         {/* Title Section */}
-        <div className='max-w-[1200px] mx-auto text-center'>
-          <h1 className='text-3xl sm:text-4xl font-bold text-white mb-4'>
+        <div className='lg:text-left container lg:mx-auto self-start w-full sm:text-center sm:self-center'>
+          <h1 className='text-3xl sm:text-4xl font-bold text-white mb-14'>
             Collaborators
           </h1>
-          <p className='text-md sm:text-lg text-white'>
-            View notifications, updates, achievements on your Memory Board, and
-            revisit past team milestones.
-          </p>
+          <div className='text-center'>
+            <p className='text-md sm:text-lg text-white'>
+              View notifications, updates, achievements on your Memory Board,
+              and revisit past team milestones.
+            </p>
+          </div>
         </div>
 
         {/* Buttons Section */}
