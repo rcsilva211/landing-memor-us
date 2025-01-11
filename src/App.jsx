@@ -259,7 +259,7 @@ const App = () => {
       </section>
 
       {/* Collaborators Section */}
-      <section className='relative collaborator flex flex-col items-center justify-start px-6 py-16 overflow-hidden min-h-[85vh] sm:min-h-[95vh]'>
+      <section className='relative collaborator flex flex-col items-center justify-start px-6 py-14 pt-10'>
         {/* Title Section */}
         <div className='max-w-[1200px] mx-auto text-center'>
           <h1 className='text-3xl sm:text-4xl font-bold text-white mb-4'>
