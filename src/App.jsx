@@ -8,6 +8,7 @@ import botRight from "./assets/bot-right.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "./App.css";
+import Loader from "./components/Loader";
 
 import homePng from "./assets/home.png";
 import ongoingPng from "./assets/ongoing.png";
@@ -160,8 +161,11 @@ const App = () => {
       buttonName: "Managing success",
     },
   ];
+
   return (
     <div className='bg-gray-900 text-white'>
+      <Loader />
+
       {/* Navbar */}
       <nav className='flex items-center justify-between px-6 py-4 relative'>
         {/* Logo */}
@@ -224,8 +228,8 @@ const App = () => {
         {/* Buttons */}
         <div className='flex flex-col mt-8 space-y-4'>
           <button
-            onClick={() => (window.location.href = "https://memor-us.com/")}
             className='px-4 py-2 text-sm font-semibold text-gray-900 bg-[#D0BCFE] rounded-full hover:bg-purple-300 transition-all duration-300 ease-in-out'
+            onClick={() => (window.location.href = "https://memor-us.com/")}
           >
             Get Started
           </button>
@@ -246,7 +250,10 @@ const App = () => {
 
         {/* Buttons */}
         <div className='flex space-x-3 mb-8 z-10'>
-          <button className='px-5 py-2 text-md font-semibold text-gray-900 bg-[#d0bcff] rounded-full hover:bg-purple-400 transition-all duration-300 ease-in-out'>
+          <button
+            className='px-5 py-2 text-md font-semibold text-gray-900 bg-[#d0bcff] rounded-full hover:bg-purple-400 transition-all duration-300 ease-in-out'
+            onClick={() => (window.location.href = "https://memor-us.com/")}
+          >
             Get Started
           </button>
           <button className='px-5 py-2 text-md font-semibold text-[#d0bcff] border border-purple-400 rounded-full hover:bg-purple-400 hover:text-gray-900 transition-all duration-300 ease-in-out'>
@@ -264,18 +271,19 @@ const App = () => {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
           {/* Background Shapes */}
+
           <motion.img
             src={topRight}
             alt='Top Right'
-            className='absolute right-5 z-0 h-44'
-            style={{ top: "-5rem" }}
+            className='absolute right-5 z-0 lg:h-44 sm:h-14 h-0'
+            style={{ top: "-5%" }}
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.img
             src={botLeft}
             alt='Bot Left'
-            className='absolute bottom-9 w-44 z-0'
+            className='absolute bottom-9 lg:w-44 sm:w-14 w-0 z-0'
             style={{ left: "-3rem" }}
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -283,7 +291,7 @@ const App = () => {
           <motion.img
             src={botRight}
             alt='Bot Right'
-            className='absolute bottom-9 right-5 z-50 w-14'
+            className='absolute bottom-9 right-5 z-50 lg:w-14 sm:w-4 w-0'
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -415,22 +423,20 @@ const App = () => {
       </section>
 
       {/* Admin section */}
-      <section className='relative flex flex-col items-center justify-start px-6 py-28'>
+      <section className='relative flex flex-col items-center justify-start px-4 sm:px-6 py-16 sm:py-28'>
         {/* Title Section */}
-        <div className='lg:text-right container lg:mx-auto self-end w-full sm:text-center sm:self-center'>
-          <h1 className='lg:text-3xl lg:me-14 sm:me-0 sm:text-4xl font-bold text-[#82D5C7] mb-14'>
+        <div className='container w-full lg:mx-auto lg:text-right sm:text-center'>
+          <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold text-[#82D5C7] mb-6 sm:mb-14'>
             Administrators
           </h1>
-          <div className='text-center'>
-            <p className='text-md sm:text-lg text-[#82D5C7]'>
-              View notifications, updates, achievements on your Memory Board,
-              and revisit past team milestones.
-            </p>
-          </div>
+          <p className='text-sm sm:text-lg text-[#82D5C7] max-w-lg mx-auto lg:mx-0'>
+            View notifications, updates, achievements on your Memory Board, and
+            revisit past team milestones.
+          </p>
         </div>
 
         {/* Buttons Section */}
-        <div className='flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-8 sm:mt-12'>
+        <div className='flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-6 sm:mt-12'>
           {slidesContentAdmin.map((slideAdmin, indexAdmin) => (
             <button
               key={indexAdmin}
@@ -450,7 +456,7 @@ const App = () => {
         </div>
 
         {/* Swiper Section */}
-        <div className='relative'>
+        <div className='relative w-full'>
           <div
             className='relative p-6 sm:p-12 rounded-xl shadow-lg mt-12 w-full max-w-[1440px] mx-auto z-10'
             style={{
@@ -470,26 +476,26 @@ const App = () => {
             >
               {slidesContentAdmin.map((slideAdmin, indexAdmin) => (
                 <SwiperSlide key={indexAdmin}>
-                  <div className='flex flex-col lg:flex-row items-center p-6 pb-0 sm:p-12 sm:pb-0 sm:pt-20'>
+                  <div className='flex flex-col lg:flex-row items-center p-6 sm:p-12'>
                     {/* Text Section */}
                     <div className='lg:w-1/2 text-left mb-8 lg:mb-0 pr-0 sm:pr-8'>
                       {slideAdmin.title && (
-                        <h2 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-[#003731] mb-4 sm:mb-6'>
+                        <h2 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-[#003731] mb-4'>
                           {slideAdmin.title}
                         </h2>
                       )}
                       {slideAdmin.description1 && (
-                        <p className='text-[#003731] text-md sm:text-lg mb-4 sm:mb-6'>
+                        <p className='text-[#003731] text-sm sm:text-lg mb-4'>
                           {slideAdmin.description1}
                         </p>
                       )}
                       {slideAdmin.description2 && (
-                        <p className='text-[#003731] text-md sm:text-lg mb-4 sm:mb-6'>
+                        <p className='text-[#003731] text-sm sm:text-lg mb-4'>
                           {slideAdmin.description2}
                         </p>
                       )}
                       {slideAdmin.specialTitle1 && (
-                        <div className='mb-4 sm:mb-6'>
+                        <div className='mb-4'>
                           <h3 className='text-lg sm:text-xl font-bold text-[#003731]'>
                             {slideAdmin.specialTitle1}
                           </h3>
@@ -499,7 +505,7 @@ const App = () => {
                         </div>
                       )}
                       {slideAdmin.specialTitle2 && (
-                        <div>
+                        <div className='mb-4'>
                           <h3 className='text-lg sm:text-xl font-bold text-[#003731]'>
                             {slideAdmin.specialTitle2}
                           </h3>
@@ -533,20 +539,23 @@ const App = () => {
               ))}
             </Swiper>
           </div>
+
+          {/* Background Decorations */}
           <img
             src={adminBgLeft}
             alt='Admin Background Left'
-            className='absolute top-0 w-32 z-0'
-            style={{ left: "-7.5rem", transform: "rotateY(180deg)" }}
+            className='absolute top-0 w-16 sm:w-32 z-0'
+            style={{ left: "-2rem" }}
           />
           <img
             src={adminBgRight}
             alt='Admin Background Right'
-            className='absolute bottom-0 w-32 z-0'
-            style={{ right: "-7.5rem", transform: "rotateY(180deg)" }}
+            className='absolute bottom-0 w-16 sm:w-32 z-0'
+            style={{ right: "-2rem" }}
           />
         </div>
       </section>
+
       <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 container mx-auto'></hr>
 
       {/* Call to Action */}
