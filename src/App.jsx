@@ -176,7 +176,7 @@ const App = () => {
         {/* Navigation Links */}
         <div className='hidden sm:flex items-center space-x-6'>
           <a
-            href='https://memor-us.com/'
+            href='https://memor-us.com/home'
             className='px-4 py-2 text-sm font-semibold text-gray-900 bg-[#D0BCFE] rounded-full hover:bg-purple-300 hover:text-gray-900  transition-all duration-300 ease-in-out'
           >
             Get Started
@@ -229,7 +229,7 @@ const App = () => {
         <div className='flex flex-col mt-8 space-y-4'>
           <button
             className='px-4 py-2 text-sm font-semibold text-gray-900 bg-[#D0BCFE] rounded-full hover:bg-purple-300 transition-all duration-300 ease-in-out'
-            onClick={() => (window.location.href = "https://memor-us.com/")}
+            onClick={() => (window.location.href = "https://memor-us.com/home")}
           >
             Get Started
           </button>
@@ -252,7 +252,7 @@ const App = () => {
         <div className='flex space-x-3 mb-8 z-10'>
           <button
             className='px-5 py-2 text-md font-semibold text-gray-900 bg-[#d0bcff] rounded-full hover:bg-purple-400 transition-all duration-300 ease-in-out'
-            onClick={() => (window.location.href = "https://memor-us.com/")}
+            onClick={() => (window.location.href = "https://memor-us.com/home")}
           >
             Get Started
           </button>
@@ -567,7 +567,7 @@ const App = () => {
           </h1>
           <button
             className='mt-6 bg-[#D0BCFE] text-black font-semibold rounded-full hover:bg-[#B9A8F6] transition px-6 py-3'
-            onClick={() => (window.location.href = "https://memor-us.com/")}
+            onClick={() => (window.location.href = "https://memor-us.com/home")}
           >
             Get Started
           </button>
