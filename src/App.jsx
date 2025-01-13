@@ -16,6 +16,16 @@ import memoryboardPng from "./assets/memoryboard.png";
 import bgSlide from "./assets/bg-slide.png";
 import bgSlideAdmin from "./assets/bg-slide-admin.png";
 
+import homePngAdmin from "./assets/home-admin.png";
+import ongoingPngAdmin from "./assets/ongoing-admin.png";
+import memoryboardPngAdmin from "./assets/memoryboard-admin.png";
+import adminBgLeft from "./assets/admin-bg-left.svg";
+import adminBgRight from "./assets/admin-bg-right.svg";
+
+import logoWhite from "./assets/logo-white.svg";
+import footerRight from "./assets/footer-right.svg";
+import footerLeft from "./assets/footer-left.svg";
+
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -103,57 +113,51 @@ const App = () => {
   const slidesContentAdmin = [
     {
       title: "Oversee the status of all the teams",
-      description1:
-        "Browse through recently uploaded. You can see when and who  posted the memor.",
+      description1: "",
       description2: "",
-      specialTitle1: "Monitor Memor Activities",
+      specialTitle1: "View All Teams’ Latest Memories Memor Activities",
       specialDesc1:
-        "You can track how many memories are about and which were created already with the number of Ongoing Memors Closed memors.",
-      specialTitle2: "Leaderboard",
+        "Browse through recently uploaded. You can see when and who posted the memor.",
+      specialTitle2: "Monitor Memor Activities",
       specialDesc2:
+        "You can track how many memories are about and which were created already with the number of Ongoing Memors Closed memors.",
+      specialTitle3: "Leaderboard",
+      specialDesc3:
         "Check the Remaining Time and see the theme of the competition. Analyze Team Performance and view who’s running at the top at the ranking.",
-      image: homePng,
+      image: homePngAdmin,
       buttonName: "Overview Teams' Progress",
     },
     {
-      title: "Teams can share their best moments",
-      description1:
-        "Your central hub for all team-building activities, showcasing ongoing and past Memors. It inspires participation, simplifies challenge management, and boosts motivation.",
-      description2: "",
-      specialTitle1: "Ongoing Memors",
-      specialDesc1:
-        "Top cards display your task names, due dates, and statuses, with urgency labels to keep your team focused.",
-      specialTitle2: "Task Progress",
-      specialDesc2:
-        "Your Memors are filtered and with labels highlighting achievements, celebrating your progress, and energizing your future tasks.",
-      image: ongoingPng,
-      buttonName: "Promoting Teamwork",
-    },
-    {
-      title: "Turning achievements into team motivation",
+      title: "Space where creativity meets management",
       description1: "",
       description2: "",
-      specialTitle1: "Leaderboard",
+      specialTitle1: "Create & Customize",
       specialDesc1:
-        "A clear, exciting view of the race to the top, showcasing team rankings based on completed Memors and earned points.",
-      specialTitle2: "Celebrating Achievements",
+        'Use the "Create a Memor" button to design interactive challenges, from fun photo tasks to collaborative activities, fostering team connection.',
+      specialTitle2: "Organize & Track",
       specialDesc2:
-        "Highlights team wins and collective efforts, fostering pride, camaraderie, and collaboration.",
-      image: leaderboardPng,
-      buttonName: "Inspire Fair Challenge",
+        'The "All," "Ongoing," and "Closed" Memors provides a clear progress view. Admins can edit details, adjust deadlines, and update points, while the Time Left column keeps teams on track.',
+      specialTitle3: "Motivation Through Points",
+      specialDesc3:
+        "Assigning points sparks friendly competition, inspiring teams to rise to the challenge.",
+      image: ongoingPngAdmin,
+      buttonName: "Shape And Guide Teams",
     },
     {
-      title: "Unlocking team potentials while creating memories",
-      description1:
-        "The Digital Memory Board is a visual path of your team’s achievements. Designed to inspire, celebrate, and connect your team. It captures the essence of collaboration and accomplishment.",
-      description2:
-        "Whether you’re an administrator shaping the experience or a collaborator bringing memories to life, the Digital Memory Board ensures everyone is connected, inspired, and ready to make every moment count.",
-      specialTitle1: "",
-      specialDesc1: "",
-      specialTitle2: "",
-      specialDesc2: "",
-      image: memoryboardPng,
-      buttonName: "Boost Team Spirit",
+      title: "Space to build, organize and amplify team collaboration",
+      description1: "",
+      description2: "",
+      specialTitle1: "Create & Edit Teams",
+      specialDesc1:
+        'The "Create a Team" button allows admins to form or update groups for seamless teamwork and engagement.',
+      specialTitle2: "Detailed Overview",
+      specialDesc2:
+        "Teams are displayed with member lists for a clear snapshot of who’s involved.",
+      specialTitle3: "Easy Updates",
+      specialDesc3:
+        "Admins can edit details or reshuffle teams using intuitive tools, ensuring the roster stays current.",
+      image: memoryboardPngAdmin,
+      buttonName: "Managing success",
     },
   ];
   return (
@@ -167,28 +171,12 @@ const App = () => {
 
         {/* Navigation Links */}
         <div className='hidden sm:flex items-center space-x-6'>
-          <ul className='flex space-x-6 text-sm font-medium'>
-            {["Home", "Memors", "Leaderboard"].map((item, index) => (
-              <motion.li
-                key={index}
-                whileHover={{
-                  scale: 1.1,
-                  textShadow: "0px 0px 8px rgba(156, 39, 176, 0.8)",
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <a href='#' className='hover:text-purple-400'>
-                  {item}
-                </a>
-              </motion.li>
-            ))}
-          </ul>
-          <button
+          <a
             href='https://memor-us.com/'
-            className='px-4 py-2 text-sm font-semibold text-gray-900 bg-purple-400 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out'
+            className='px-4 py-2 text-sm font-semibold text-gray-900 bg-[#D0BCFE] rounded-full hover:bg-purple-300 hover:text-gray-900  transition-all duration-300 ease-in-out'
           >
             Get Started
-          </button>
+          </a>
         </div>
 
         {/* Hamburger Menu Button (Mobile) */}
@@ -227,28 +215,17 @@ const App = () => {
       >
         {/* Close Button */}
         <button
-          className='absolute top-6 right-6 text-purple-400 text-2xl focus:outline-none'
+          className='absolute top-6 right-6 text-[#65558f] text-2xl focus:outline-none'
           onClick={closeMenu}
         >
           &times;
         </button>
 
-        {/* Navigation Links (Mobile) */}
-        <ul className='space-y-6 text-lg font-medium'>
-          {["Home", "Memors", "Leaderboard"].map((item, index) => (
-            <li key={index}>
-              <a href='#' className='hover:text-purple-400' onClick={closeMenu}>
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
-
         {/* Buttons */}
         <div className='flex flex-col mt-8 space-y-4'>
           <button
-            href='https://memor-us.com/'
-            className='w-48 px-4 py-2 text-lg font-semibold text-gray-900 bg-purple-400 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out'
+            onClick={() => (window.location.href = "https://memor-us.com/")}
+            className='px-4 py-2 text-sm font-semibold text-gray-900 bg-[#D0BCFE] rounded-full hover:bg-purple-300 transition-all duration-300 ease-in-out'
           >
             Get Started
           </button>
@@ -262,17 +239,17 @@ const App = () => {
       <section className='relative flex flex-col items-center justify-center text-center px-6 py-10 overflow-hidden'>
         {/* Headline */}
         <h1 className='text-3xl sm:text-5xl font-medium leading-tight mb-6 max-w-3xl z-10'>
-          Where <span className='text-purple-400'>teams</span> turn moments
+          Where <span className='text-[#d0bcfe]'>teams</span> turn moments
           <br />
-          into <span className='text-purple-400'>collectible memories</span>
+          into <span className='text-[#d0bcfe]'>collectible memories</span>
         </h1>
 
         {/* Buttons */}
         <div className='flex space-x-3 mb-8 z-10'>
-          <button className='px-5 py-2 text-md font-semibold text-gray-900 bg-purple-400 rounded-lg hover:bg-purple-300 transition-all duration-300 ease-in-out'>
+          <button className='px-5 py-2 text-md font-semibold text-gray-900 bg-[#d0bcff] rounded-full hover:bg-purple-400 transition-all duration-300 ease-in-out'>
             Get Started
           </button>
-          <button className='px-5 py-2 text-md font-semibold text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-gray-900 transition-all duration-300 ease-in-out'>
+          <button className='px-5 py-2 text-md font-semibold text-[#d0bcff] border border-purple-400 rounded-full hover:bg-purple-400 hover:text-gray-900 transition-all duration-300 ease-in-out'>
             View Demo
           </button>
         </div>
@@ -312,7 +289,7 @@ const App = () => {
           />
         </div>
       </section>
-      <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700'></hr>
+      <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 container mx-auto'></hr>
 
       {/* Features Section */}
       <section className='relative container mx-auto flex flex-col items-center justify-center text-center px-6 py-10 overflow-hidden'>
@@ -355,8 +332,8 @@ const App = () => {
                   : "bg-transparent text-white border border-purple-200 hover:bg-purple-200 hover:text-[#381e72]"
               }`}
               onClick={() => {
-                setActiveIndex(index); // Set active button
-                changeSlide(index); // Change slide
+                setActiveIndex(index);
+                changeSlide(index);
               }}
             >
               {slide.buttonName}
@@ -438,14 +415,14 @@ const App = () => {
       </section>
 
       {/* Admin section */}
-      <section className='relative flex flex-col items-center justify-start px-6 py-14 pt-10'>
+      <section className='relative flex flex-col items-center justify-start px-6 py-28'>
         {/* Title Section */}
         <div className='lg:text-right container lg:mx-auto self-end w-full sm:text-center sm:self-center'>
-          <h1 className='lg:text-3xl lg:me-14 sm:me-0 sm:text-4xl font-bold text-white mb-14'>
+          <h1 className='lg:text-3xl lg:me-14 sm:me-0 sm:text-4xl font-bold text-[#82D5C7] mb-14'>
             Administrators
           </h1>
           <div className='text-center'>
-            <p className='text-md sm:text-lg text-white'>
+            <p className='text-md sm:text-lg text-[#82D5C7]'>
               View notifications, updates, achievements on your Memory Board,
               and revisit past team milestones.
             </p>
@@ -454,98 +431,186 @@ const App = () => {
 
         {/* Buttons Section */}
         <div className='flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-8 sm:mt-12'>
-          {slidesContentAdmin.map((slide, indexAdmin) => (
+          {slidesContentAdmin.map((slideAdmin, indexAdmin) => (
             <button
               key={indexAdmin}
               className={`px-4 py-2 font-semibold rounded-full shadow transition duration-300 mb-4 sm:mb-0 ${
                 activeIndexAdmin === indexAdmin
-                  ? "bg-purple-200 text-[#381e72]"
-                  : "bg-transparent text-white border border-purple-200 hover:bg-purple-200 hover:text-[#381e72]"
+                  ? "bg-[#82D5C7] text-[#013A2B]"
+                  : "bg-transparent text-[#82D5C7] border border-[#82D5C7] hover:bg-[#82D5C7] hover:text-[#013A2B]"
               }`}
               onClick={() => {
                 setActiveIndexAdmin(indexAdmin);
                 changeSlideAdmin(indexAdmin);
               }}
             >
-              {slide.buttonName}
+              {slideAdmin.buttonName}
             </button>
           ))}
         </div>
 
         {/* Swiper Section */}
-        <div
-          className='relative p-6 sm:p-12 rounded-xl shadow-lg mt-12 w-full max-w-[1440px] mx-auto z-10'
-          style={{
-            backgroundImage: `url(${bgSlideAdmin})`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-          }}
-        >
-          <Swiper
-            onSwiper={(swiper) => (swiperRefAdmin.current = swiper)}
-            onSlideChange={(swiper) =>
-              setActiveIndexAdmin(swiper.activeIndexAdmin)
-            }
-            spaceBetween={20}
-            slidesPerView={1}
-            className='h-auto mt-7'
+        <div className='relative'>
+          <div
+            className='relative p-6 sm:p-12 rounded-xl shadow-lg mt-12 w-full max-w-[1440px] mx-auto z-10'
+            style={{
+              backgroundImage: `url(${bgSlideAdmin})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+            }}
           >
-            {slidesContentAdmin.map((slideAdmin, indexAdmin) => (
-              <SwiperSlide key={indexAdmin}>
-                <div className='flex flex-col lg:flex-row items-center p-6 pb-0 sm:p-12 sm:pb-0 sm:pt-20'>
-                  {/* Text Section */}
-                  <div className='lg:w-1/2 text-left mb-8 lg:mb-0 pr-0 sm:pr-8'>
-                    {slideAdmin.title && (
-                      <h2 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-[#381e72] mb-4 sm:mb-6'>
-                        {slideAdmin.title}
-                      </h2>
-                    )}
-                    {slideAdmin.description1 && (
-                      <p className='text-[#381e72] text-md sm:text-lg mb-4 sm:mb-6'>
-                        {slideAdmin.description1}
-                      </p>
-                    )}
-                    {slideAdmin.description2 && (
-                      <p className='text-[#381e72] text-md sm:text-lg mb-4 sm:mb-6'>
-                        {slideAdmin.description2}
-                      </p>
-                    )}
-                    {slideAdmin.specialTitle1 && (
-                      <div className='mb-4 sm:mb-6'>
-                        <h3 className='text-lg sm:text-xl font-bold text-[#381e72]'>
-                          {slideAdmin.specialTitle1}
-                        </h3>
-                        <p className='text-[#381e72] text-sm sm:text-md'>
-                          {slideAdmin.specialDesc1}
+            <Swiper
+              onSwiper={(swiper) => (swiperRefAdmin.current = swiper)}
+              onSlideChange={(swiper) =>
+                setActiveIndexAdmin(swiper.activeIndex)
+              }
+              spaceBetween={20}
+              slidesPerView={1}
+              className='h-auto mt-7'
+            >
+              {slidesContentAdmin.map((slideAdmin, indexAdmin) => (
+                <SwiperSlide key={indexAdmin}>
+                  <div className='flex flex-col lg:flex-row items-center p-6 pb-0 sm:p-12 sm:pb-0 sm:pt-20'>
+                    {/* Text Section */}
+                    <div className='lg:w-1/2 text-left mb-8 lg:mb-0 pr-0 sm:pr-8'>
+                      {slideAdmin.title && (
+                        <h2 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-[#003731] mb-4 sm:mb-6'>
+                          {slideAdmin.title}
+                        </h2>
+                      )}
+                      {slideAdmin.description1 && (
+                        <p className='text-[#003731] text-md sm:text-lg mb-4 sm:mb-6'>
+                          {slideAdmin.description1}
                         </p>
-                      </div>
-                    )}
-                    {slideAdmin.specialTitle2 && (
-                      <div>
-                        <h3 className='text-lg sm:text-xl font-bold text-[#381e72]'>
-                          {slideAdmin.specialTitle2}
-                        </h3>
-                        <p className='text-[#381e72] text-sm sm:text-md'>
-                          {slideAdmin.specialDesc2}
+                      )}
+                      {slideAdmin.description2 && (
+                        <p className='text-[#003731] text-md sm:text-lg mb-4 sm:mb-6'>
+                          {slideAdmin.description2}
                         </p>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                      {slideAdmin.specialTitle1 && (
+                        <div className='mb-4 sm:mb-6'>
+                          <h3 className='text-lg sm:text-xl font-bold text-[#003731]'>
+                            {slideAdmin.specialTitle1}
+                          </h3>
+                          <p className='text-[#003731] text-sm sm:text-md'>
+                            {slideAdmin.specialDesc1}
+                          </p>
+                        </div>
+                      )}
+                      {slideAdmin.specialTitle2 && (
+                        <div>
+                          <h3 className='text-lg sm:text-xl font-bold text-[#003731]'>
+                            {slideAdmin.specialTitle2}
+                          </h3>
+                          <p className='text-[#003731] text-sm sm:text-md'>
+                            {slideAdmin.specialDesc2}
+                          </p>
+                        </div>
+                      )}
+                      {slideAdmin.specialTitle3 && (
+                        <div>
+                          <h3 className='text-lg sm:text-xl font-bold text-[#003731]'>
+                            {slideAdmin.specialTitle3}
+                          </h3>
+                          <p className='text-[#003731] text-sm sm:text-md'>
+                            {slideAdmin.specialDesc3}
+                          </p>
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Image Section */}
-                  <div className='lg:w-1/2 flex justify-center'>
-                    <img
-                      src={slideAdmin.image}
-                      alt={slideAdmin.title}
-                      className='w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] object-cover'
-                    />
+                    {/* Image Section */}
+                    <div className='lg:w-1/2 flex justify-center'>
+                      <img
+                        src={slideAdmin.image}
+                        alt={slideAdmin.title}
+                        className='w-full max-w-[300px] sm:max-w-[400px] lg:max-w-[500px] object-cover'
+                      />
+                    </div>
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+          <img
+            src={adminBgLeft}
+            alt='Admin Background Left'
+            className='absolute top-0 w-32 z-0'
+            style={{ left: "-7.5rem", transform: "rotateY(180deg)" }}
+          />
+          <img
+            src={adminBgRight}
+            alt='Admin Background Right'
+            className='absolute bottom-0 w-32 z-0'
+            style={{ right: "-7.5rem", transform: "rotateY(180deg)" }}
+          />
         </div>
       </section>
+      <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 container mx-auto'></hr>
+
+      {/* Call to Action */}
+      <section className='relative flex items-center justify-center h-[300px] w-full'>
+        <div className='relative text-center text-white'>
+          <h1 className='text-2xl sm:text-4xl font-bold'>
+            <span className='text-[#D0BCFE]'>Bringing the Building</span> in
+            Team-Building to the next level
+          </h1>
+          <button
+            className='mt-6 bg-[#D0BCFE] text-black font-semibold rounded-full hover:bg-[#B9A8F6] transition px-6 py-3'
+            onClick={() => (window.location.href = "https://memor-us.com/")}
+          >
+            Get Started
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      {/* Footer */}
+      <footer className='w-full relative h-[200px] bg-[#381E72] flex items-center justify-center'>
+        {/* Logo and Links */}
+        <div className='relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-[600px] px-6 text-center'>
+          {/* Logo */}
+          <div className='flex items-center mb-4 md:mb-0 md:mr-6'>
+            <img
+              src={logoWhite}
+              alt="Memor'us Logo"
+              className='h-8 sm:h-10 object-contain'
+            />
+          </div>
+
+          {/* Divider */}
+          <div className='hidden md:block h-px w-40 bg-white my-4 md:my-0 md:mx-6'></div>
+
+          {/* Links */}
+          <div className='flex flex-col text-start gap-3'>
+            <a href='#' className='text-white text-sm'>
+              About Us
+            </a>
+            <a href='#' className='text-white text-sm'>
+              Manage cookies
+            </a>
+            <a href='#' className='text-white text-sm'>
+              Terms of Use
+            </a>
+            <a href='#' className='text-white text-sm'>
+              Get support
+            </a>
+          </div>
+        </div>
+        {/* Background Left Image */}
+        <img
+          src={footerLeft}
+          alt='Footer Left'
+          className='absolute bottom-0 left-0 h-32 z-0'
+        />
+        {/* Background Right Image */}
+        <img
+          src={footerRight}
+          alt='Footer Right'
+          className='absolute top-0 right-0 h-32 z-0'
+        />
+      </footer>
     </div>
   );
 };
