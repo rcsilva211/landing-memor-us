@@ -253,9 +253,6 @@ const App = () => {
           >
             Get Started
           </button>
-          <button className='px-5 py-2 text-md font-semibold text-[#d0bcff] border border-purple-400 rounded-full hover:bg-purple-400 hover:text-gray-900 transition-all duration-300 ease-in-out'>
-            View Demo
-          </button>
         </div>
 
         {/* Image Container */}
