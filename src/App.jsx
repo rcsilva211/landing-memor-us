@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import logo from "./assets/logo-nav.svg";
-import heroImg from "./assets/hero-img.svg";
+import heroImg from "./assets/heroImg.png";
 import topRight from "./assets/top-right.svg";
 import botLeft from "./assets/bot-left.svg";
 import botRight from "./assets/bot-right.svg";
@@ -233,9 +233,6 @@ const App = () => {
           >
             Get Started
           </button>
-          <button className='w-48 px-4 py-2 text-lg font-semibold text-purple-400 border border-purple-400 rounded-lg hover:bg-purple-400 hover:text-gray-900 transition-all duration-300 ease-in-out'>
-            View Demo
-          </button>
         </div>
       </motion.div>
 
@@ -263,6 +260,22 @@ const App = () => {
 
         {/* Image Container */}
         <div className='relative w-full max-w-4xl z-10'>
+          {/* Video Overlay */}
+          <div className='iframe-container absolute top-1/2 mt-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 w-[90%]'>
+            <iframe
+              width='100%'
+              height='450'
+              src='https://www.youtube.com/embed/3aiPeL7qYk0?autoplay=1&mute=1&loop=1&playlist=3aiPeL7qYk0'
+              title='YouTube video player'
+              frameBorder='0'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+              referrerPolicy='strict-origin-when-cross-origin'
+              allowFullScreen
+              className='rounded-lg shadow-lg'
+            ></iframe>
+          </div>
+
+          {/* Hero Image */}
           <motion.img
             src={heroImg}
             alt='Hero'
@@ -270,8 +283,8 @@ const App = () => {
             animate={{ y: [0, 5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* Background Shapes */}
 
+          {/* Background Shapes */}
           <motion.img
             src={topRight}
             alt='Top Right'

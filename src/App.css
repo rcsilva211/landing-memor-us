@@ -40,3 +40,20 @@
   height: 200px;
   z-index: 1;
 }
+
+/* Add the animation */
+@keyframes float {
+  0% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(5px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
+
+.iframe-container {
+  animation: float 3s ease-in-out infinite;
+}
