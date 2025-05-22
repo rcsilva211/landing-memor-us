@@ -8,11 +8,11 @@ const Loader = () => {
   useEffect(() => {
     const fadeOutTimer = setTimeout(() => {
       setFadeOut(true);
-    }, 1000);
+    }, 500);
 
     const removeLoaderTimer = setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1000);
 
     return () => {
       clearTimeout(fadeOutTimer);
