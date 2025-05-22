@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useInView, useAnimation } from "framer-motion";
 import logo from "./assets/logo-nav.svg";
 import heroImg from "./assets/heroImg.png";
 import topRight from "./assets/top-right.svg";
@@ -27,12 +27,86 @@ import logoWhite from "./assets/logo-white.svg";
 import footerRight from "./assets/footer-right.svg";
 import footerLeft from "./assets/footer-left.svg";
 
+// Custom hook for scroll animations
+const useScrollAnimation = (delay = 0) => {
+  const controls = useAnimation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, threshold: 0.1 });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start("visible");
+    }
+  }, [controls, inView]);
+
+  return [
+    ref,
+    controls,
+    {
+      hidden: { opacity: 0, y: 50 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          duration: 0.6,
+          delay: delay,
+          ease: [0.25, 0.1, 0.25, 1],
+        },
+      },
+    },
+  ];
+};
+
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  },
+};
+
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeIndexAdmin, setActiveIndexAdmin] = useState(0);
   const swiperRef = useRef(null);
   const swiperRefAdmin = useRef(null);
+
+  // Scroll animation hooks
+  const [heroRef, heroControls, heroVariants] = useScrollAnimation();
+  const [featuresRef, featuresControls, featuresVariants] =
+    useScrollAnimation(0.2);
+  const [collabRef, collabControls, collabVariants] = useScrollAnimation(0.3);
+  const [adminRef, adminControls, adminVariants] = useScrollAnimation(0.4);
+  const [ctaRef, ctaControls, ctaVariants] = useScrollAnimation(0.2);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -50,11 +124,11 @@ const App = () => {
   };
   const slidesContentCollab = [
     {
-      title: "Teams’ hub for tracking and celebrating memories ",
+      title: "Teams' hub for tracking and celebrating memories ",
       description1:
-        "You’ll find the latest updates with the freshest memors from your team, giving you a front-row seat to everything happening in real time.",
+        "You'll find the latest updates with the freshest memors from your team, giving you a front-row seat to everything happening in real time.",
       description2:
-        "You can dive into your personal progress with a quick glance. And let’s not miss the leaderboard, where you can cheer on the current champions or strategize your way to the top.",
+        "You can dive into your personal progress with a quick glance. And let's not miss the leaderboard, where you can cheer on the current champions or strategize your way to the top.",
       specialTitle1: "",
       specialDesc1: "",
       specialTitle2: "",
@@ -92,9 +166,9 @@ const App = () => {
     {
       title: "Unlocking team potentials while creating memories",
       description1:
-        "The Digital Memory Board is a visual path of your team’s achievements. Designed to inspire, celebrate, and connect your team. It captures the essence of collaboration and accomplishment.",
+        "The Digital Memory Board is a visual path of your team's achievements. Designed to inspire, celebrate, and connect your team. It captures the essence of collaboration and accomplishment.",
       description2:
-        "Whether you’re an administrator shaping the experience or a collaborator bringing memories to life, the Digital Memory Board ensures everyone is connected, inspired, and ready to make every moment count.",
+        "Whether you're an administrator shaping the experience or a collaborator bringing memories to life, the Digital Memory Board ensures everyone is connected, inspired, and ready to make every moment count.",
       specialTitle1: "",
       specialDesc1: "",
       specialTitle2: "",
@@ -116,7 +190,7 @@ const App = () => {
       title: "Oversee the status of all the teams",
       description1: "",
       description2: "",
-      specialTitle1: "View All Teams’ Latest Memories Memor Activities",
+      specialTitle1: "View All Teams' Latest Memories Memor Activities",
       specialDesc1:
         "Browse through recently uploaded. You can see when and who posted the memor.",
       specialTitle2: "Monitor Memor Activities",
@@ -124,7 +198,7 @@ const App = () => {
         "You can track how many memories are about and which were created already with the number of Ongoing Memors Closed memors.",
       specialTitle3: "Leaderboard",
       specialDesc3:
-        "Check the Remaining Time and see the theme of the competition. Analyze Team Performance and view who’s running at the top at the ranking.",
+        "Check the Remaining Time and see the theme of the competition. Analyze Team Performance and view who's running at the top at the ranking.",
       image: homePngAdmin,
       buttonName: "Overview Teams' Progress",
     },
@@ -153,7 +227,7 @@ const App = () => {
         'The "Create a Team" button allows admins to form or update groups for seamless teamwork and engagement.',
       specialTitle2: "Detailed Overview",
       specialDesc2:
-        "Teams are displayed with member lists for a clear snapshot of who’s involved.",
+        "Teams are displayed with member lists for a clear snapshot of who's involved.",
       specialTitle3: "Easy Updates",
       specialDesc3:
         "Admins can edit details or reshuffle teams using intuitive tools, ensuring the roster stays current.",
@@ -167,7 +241,12 @@ const App = () => {
       <Loader />
 
       {/* Navbar */}
-      <nav className='flex items-center justify-between px-6 py-4 relative'>
+      <motion.nav
+        className='flex items-center justify-between px-6 py-4 relative'
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.5 }}
+      >
         {/* Logo */}
         <div className='flex items-center'>
           <img src={logo} alt='Logo' className='h-8 object-contain' />
@@ -204,7 +283,7 @@ const App = () => {
             />
           </svg>
         </button>
-      </nav>
+      </motion.nav>
 
       {/* Sliding Menu (Mobile) */}
       <motion.div
@@ -237,26 +316,41 @@ const App = () => {
       </motion.div>
 
       {/* Hero Section */}
-      <section className='relative flex flex-col items-center justify-center text-center px-6 py-10 overflow-hidden'>
+      <motion.section
+        ref={heroRef}
+        initial='hidden'
+        animate={heroControls}
+        variants={heroVariants}
+        className='relative flex flex-col items-center justify-center text-center px-6 py-10 overflow-hidden'
+      >
         {/* Headline */}
-        <h1 className='text-3xl sm:text-5xl font-medium leading-tight mb-6 max-w-3xl z-10'>
+        <motion.h1
+          variants={itemVariants}
+          className='text-3xl sm:text-5xl font-medium leading-tight mb-6 max-w-3xl z-10'
+        >
           Where <span className='text-[#d0bcfe]'>teams</span> turn moments
           <br />
           into <span className='text-[#d0bcfe]'>collectible memories</span>
-        </h1>
+        </motion.h1>
 
         {/* Buttons */}
-        <div className='flex space-x-3 mb-8 z-10'>
+        <motion.div
+          variants={itemVariants}
+          className='flex space-x-3 mb-8 z-10'
+        >
           <button
             className='px-5 py-2 text-md font-semibold text-gray-900 bg-[#d0bcff] rounded-full hover:bg-purple-400 transition-all duration-300 ease-in-out'
             onClick={() => (window.location.href = "https://memor-us.com/home")}
           >
             Get Started
           </button>
-        </div>
+        </motion.div>
 
         {/* Image Container */}
-        <div className='relative w-full max-w-4xl z-10'>
+        <motion.div
+          variants={scaleIn}
+          className='relative w-full max-w-4xl z-10'
+        >
           {/* Video Overlay */}
           <div className='iframe-container absolute top-1/2 mt-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 w-[90%]'>
             <iframe
@@ -305,45 +399,77 @@ const App = () => {
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           />
-        </div>
-      </section>
-      <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 container mx-auto'></hr>
+        </motion.div>
+      </motion.section>
+
+      <motion.hr
+        initial={{ opacity: 0, scaleX: 0 }}
+        whileInView={{ opacity: 1, scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 container mx-auto'
+      />
 
       {/* Features Section */}
-      <section className='relative container mx-auto flex flex-col items-center justify-center text-center px-6 py-10 overflow-hidden'>
-        <h1 className='text-2xl sm:text-4xl font-medium leading-tight mb-6 max-w-3xl z-10'>
+      <motion.section
+        ref={featuresRef}
+        initial='hidden'
+        animate={featuresControls}
+        variants={featuresVariants}
+        className='relative container mx-auto flex flex-col items-center justify-center text-center px-6 py-10 overflow-hidden'
+      >
+        <motion.h1
+          variants={itemVariants}
+          className='text-2xl sm:text-4xl font-medium leading-tight mb-6 max-w-3xl z-10'
+        >
           <span className='text-purple-400'>
             Administrators and Collaborators work
           </span>{" "}
           together to create vibrant communities
-        </h1>
+        </motion.h1>
 
-        <p className='text-sm sm:text-md font-light mb-6 max-w-2xl z-10'>
+        <motion.p
+          variants={itemVariants}
+          className='text-sm sm:text-md font-light mb-6 max-w-2xl z-10'
+        >
           We blend the power of team-shared achievements into drivers of
           motivation and collaboration.
-        </p>
-      </section>
+        </motion.p>
+      </motion.section>
 
       {/* Collaborators Section */}
-      <section className='relative collaborator flex flex-col items-center justify-start px-6 py-14 pt-10'>
+      <motion.section
+        ref={collabRef}
+        initial='hidden'
+        animate={collabControls}
+        variants={collabVariants}
+        className='relative collaborator flex flex-col items-center justify-start px-6 py-14 pt-10'
+      >
         {/* Title Section */}
         <div className='lg:text-left container lg:mx-auto self-start w-full sm:text-center sm:self-center'>
-          <h1 className='lg:text-3xl lg:ms-14 sm:ms-0 sm:text-4xl font-bold text-white mb-14'>
+          <motion.h1
+            variants={itemVariants}
+            className='lg:text-3xl lg:ms-14 sm:ms-0 sm:text-4xl font-bold text-white mb-14'
+          >
             Collaborators
-          </h1>
-          <div className='text-center'>
+          </motion.h1>
+          <motion.div variants={itemVariants} className='text-center'>
             <p className='text-md sm:text-lg text-white'>
               View notifications, updates, achievements on your Memory Board,
               and revisit past team milestones.
             </p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Buttons Section */}
-        <div className='flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-8 sm:mt-12'>
+        <motion.div
+          variants={containerVariants}
+          className='flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-8 sm:mt-12'
+        >
           {slidesContentCollab.map((slide, index) => (
-            <button
+            <motion.button
               key={index}
+              variants={itemVariants}
               className={`px-4 py-2 font-semibold rounded-full shadow transition duration-300 mb-4 sm:mb-0 ${
                 activeIndex === index
                   ? "bg-purple-200 text-[#381e72]"
@@ -353,14 +479,17 @@ const App = () => {
                 setActiveIndex(index);
                 changeSlide(index);
               }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {slide.buttonName}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Swiper Section */}
-        <div
+        <motion.div
+          variants={scaleIn}
           className='relative p-6 sm:p-12 rounded-xl shadow-lg mt-12 w-full max-w-[1440px] mx-auto z-10'
           style={{
             backgroundImage: `url(${bgSlide})`,
@@ -429,27 +558,43 @@ const App = () => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* Admin section */}
-      <section className='relative flex flex-col items-center justify-start px-4 sm:px-6 py-16 sm:py-28'>
+      <motion.section
+        ref={adminRef}
+        initial='hidden'
+        animate={adminControls}
+        variants={adminVariants}
+        className='relative flex flex-col items-center justify-start px-4 sm:px-6 py-16 sm:py-28'
+      >
         {/* Title Section */}
         <div className='container w-full lg:mx-auto lg:text-right sm:text-center'>
-          <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold text-[#82D5C7] mb-6 sm:mb-14'>
+          <motion.h1
+            variants={itemVariants}
+            className='text-3xl sm:text-4xl lg:text-5xl font-bold text-[#82D5C7] mb-6 sm:mb-14'
+          >
             Administrators
-          </h1>
-          <p className='text-sm sm:text-lg text-[#82D5C7] max-w-lg mx-auto lg:mx-0'>
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className='text-sm sm:text-lg text-[#82D5C7] max-w-lg mx-auto lg:mx-0'
+          >
             View notifications, updates, achievements on your Memory Board, and
             revisit past team milestones.
-          </p>
+          </motion.p>
         </div>
 
         {/* Buttons Section */}
-        <div className='flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-6 sm:mt-12'>
+        <motion.div
+          variants={containerVariants}
+          className='flex flex-wrap justify-center space-x-2 sm:space-x-4 mt-6 sm:mt-12'
+        >
           {slidesContentAdmin.map((slideAdmin, indexAdmin) => (
-            <button
+            <motion.button
               key={indexAdmin}
+              variants={itemVariants}
               className={`px-4 py-2 font-semibold rounded-full shadow transition duration-300 mb-4 sm:mb-0 ${
                 activeIndexAdmin === indexAdmin
                   ? "bg-[#82D5C7] text-[#013A2B]"
@@ -459,15 +604,18 @@ const App = () => {
                 setActiveIndexAdmin(indexAdmin);
                 changeSlideAdmin(indexAdmin);
               }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {slideAdmin.buttonName}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Swiper Section */}
         <div className='relative w-full'>
-          <div
+          <motion.div
+            variants={scaleIn}
             className='relative p-6 sm:p-12 rounded-xl shadow-lg mt-12 w-full max-w-[1440px] mx-auto z-10'
             style={{
               backgroundImage: `url(${bgSlideAdmin})`,
@@ -548,88 +696,163 @@ const App = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
-          </div>
+          </motion.div>
 
           {/* Background Decorations */}
-          <img
+          <motion.img
             src={adminBgLeft}
             alt='Admin Background Left'
             className='absolute top-0 w-16 sm:w-32 z-0'
             style={{ left: "-2rem" }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           />
-          <img
+          <motion.img
             src={adminBgRight}
             alt='Admin Background Right'
             className='absolute bottom-0 w-16 sm:w-32 z-0'
             style={{ right: "-2rem" }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.5 }}
           />
         </div>
-      </section>
+      </motion.section>
 
-      <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 container mx-auto'></hr>
+      <motion.hr
+        initial={{ opacity: 0, scaleX: 0 }}
+        whileInView={{ opacity: 1, scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+        className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700 container mx-auto'
+      />
 
       {/* Call to Action */}
-      <section className='relative flex items-center justify-center h-[300px] w-full'>
-        <div className='relative text-center text-white'>
-          <h1 className='text-2xl sm:text-4xl font-bold'>
+      <motion.section
+        ref={ctaRef}
+        initial='hidden'
+        animate={ctaControls}
+        variants={ctaVariants}
+        className='relative flex items-center justify-center h-[300px] w-full'
+      >
+        <motion.div
+          variants={scaleIn}
+          className='relative text-center text-white'
+        >
+          <motion.h1
+            variants={itemVariants}
+            className='text-2xl sm:text-4xl font-bold'
+          >
             <span className='text-[#D0BCFE]'>Bringing the Building</span> in
             Team-Building to the next level
-          </h1>
-          <button
+          </motion.h1>
+          <motion.button
+            variants={itemVariants}
             className='mt-6 bg-[#D0BCFE] text-black font-semibold rounded-full hover:bg-[#B9A8F6] transition px-6 py-3'
             onClick={() => (window.location.href = "https://memor-us.com/home")}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Get Started
-          </button>
-        </div>
-      </section>
+          </motion.button>
+        </motion.div>
+      </motion.section>
 
       {/* Footer */}
-      {/* Footer */}
-      <footer className='w-full relative h-[200px] bg-[#381E72] flex items-center justify-center'>
+      <motion.footer
+        className='w-full relative h-[200px] bg-[#381E72] flex items-center justify-center'
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
         {/* Logo and Links */}
-        <div className='relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-[600px] px-6 text-center'>
+        <motion.div
+          className='relative z-10 flex flex-col md:flex-row items-center justify-between w-full max-w-[600px] px-6 text-center'
+          variants={containerVariants}
+          initial='hidden'
+          whileInView='visible'
+          viewport={{ once: true }}
+        >
           {/* Logo */}
-          <div className='flex items-center mb-4 md:mb-0 md:mr-6'>
+          <motion.div
+            variants={itemVariants}
+            className='flex items-center mb-4 md:mb-0 md:mr-6'
+          >
             <img
               src={logoWhite}
               alt="Memor'us Logo"
               className='h-8 sm:h-10 object-contain'
             />
-          </div>
+          </motion.div>
 
           {/* Divider */}
-          <div className='hidden md:block h-px w-40 bg-white my-4 md:my-0 md:mx-6'></div>
+          <motion.div
+            variants={scaleIn}
+            className='hidden md:block h-px w-40 bg-white my-4 md:my-0 md:mx-6'
+          />
 
           {/* Links */}
-          <div className='flex flex-col text-start gap-3'>
-            <a href='#' className='text-white text-sm'>
+          <motion.div
+            variants={containerVariants}
+            className='flex flex-col text-start gap-3'
+          >
+            <motion.a
+              variants={itemVariants}
+              href='#'
+              className='text-white text-sm hover:text-purple-300 transition-colors'
+            >
               About Us
-            </a>
-            <a href='#' className='text-white text-sm'>
+            </motion.a>
+            <motion.a
+              variants={itemVariants}
+              href='#'
+              className='text-white text-sm hover:text-purple-300 transition-colors'
+            >
               Manage cookies
-            </a>
-            <a href='#' className='text-white text-sm'>
+            </motion.a>
+            <motion.a
+              variants={itemVariants}
+              href='#'
+              className='text-white text-sm hover:text-purple-300 transition-colors'
+            >
               Terms of Use
-            </a>
-            <a href='#' className='text-white text-sm'>
+            </motion.a>
+            <motion.a
+              variants={itemVariants}
+              href='#'
+              className='text-white text-sm hover:text-purple-300 transition-colors'
+            >
               Get support
-            </a>
-          </div>
-        </div>
+            </motion.a>
+          </motion.div>
+        </motion.div>
+
         {/* Background Left Image */}
-        <img
+        <motion.img
           src={footerLeft}
           alt='Footer Left'
           className='absolute bottom-0 left-0 h-32 z-0'
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
         />
+
         {/* Background Right Image */}
-        <img
+        <motion.img
           src={footerRight}
           alt='Footer Right'
           className='absolute top-0 right-0 h-32 z-0'
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
         />
-      </footer>
+      </motion.footer>
     </div>
   );
 };
